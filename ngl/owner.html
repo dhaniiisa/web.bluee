@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Owner Messages</title>
+<style>
+body{
+  font-family: Arial;
+  background:#6196e7;
+  color:rgb(0, 0, 0);
+  padding:20px;
+}
+input,button{
+  padding:10px;
+  margin:5px 0;
+}
+.msg{
+  background:#fff8f8;
+  padding:10px;
+  border-radius:10px;
+  margin-top:10px;
+}
+</style>
+</head>
+<body>
+
+<h2>🔐 Owner Login</h2>
+<input type="password" id="pass" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<div id="messages"></div>
+
+<script>
+const PASSWORD = "1234"; // ganti password
+
+function login(){
+  let p = document.getElementById("pass").value;
+  if(p !== PASSWORD){
+    alert("Password salah!");
+    return;
+  }
+
+  let data = JSON.parse(localStorage.getItem("ngl")) || [];
+  let box = document.getElementById("messages");
+  box.innerHTML = "<h3>📨 Pesan Masuk</h3>";
+
+  if(data.length==0){
+    box.innerHTML += "<p>Belum ada pesan</p>";
+  }
+
+  data.forEach(d=>{
+    box.innerHTML += `
+      <div class="msg">
+        <p>${d.text}</p>
+        <small>${d.time}</small>
+      </div>`;
+  });
+}
+</script>
+
+</body>
+</html>
